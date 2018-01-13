@@ -12,7 +12,48 @@ include ("polaczenia2.php");
 $d = ($_POST['d']);
 if(isset($_COOKIE["cookie"])){
 	$user=$_COOKIE["cookie"];
-	echo $user;
+	if(isset($_GET['fol'])){
+		
+		echo "Witaj: ".$_COOKIE["cookie"];
+	
+ 
+ $directory = $user.'/'.$_GET['fol'];
+$dir = opendir($directory);
+echo "<br><br>Lista plików:<br>";
+ 
+ 
+while($file_name = readdir($dir))  {
+	 if (($file_name != ".") && ($file_name != "..")) {
+		 
+		 	
+		 //$plik = $file_name;
+		if (strstr($file_name, ".")!==False){
+			echo $file_name;
+	   echo "   <a href='ciastka.php?p=".$file_name."'>Pobierz</a><br>";
+		}
+		else{
+			echo $file_name;
+			
+			echo "<a href='index.php?fol=".$file_name."'>Przeglądaj</a><br>";}
+	 }
+	 
+}
+
+closedir($dir);
+	echo"<br><br><form action='odbierz.php' method='POST'
+ ENCTYPE='multipart/form-data'>
+ <input type='hidden' name='rej2' value='rej2'>
+ <input type='hidden' name='fol' value='".$_GET['fol']."'>
+ <input type='file' name='plik'/>
+ <input type='submit' value='Wyślij plik'/>
+ </form>";
+echo "<br><a href='index.php'>Powrót</a><br>";
+ echo "<br><a href='wyloguj.php?d=".$d."'>Wyloguj się</a><br>";
+		
+	}
+	
+	else{
+	//echo $user;
 echo "Witaj: ".$_COOKIE["cookie"];
 include ("dodjpliki.php");
 include ("newfolder.php");
@@ -33,7 +74,7 @@ $proby=$wiersz1 [2];}
 	echo "<p><font size='5' color='red'> Ktoś próbował sie zalogować nie poprawnymi danymi dnia:  ".$data."  </font></p></br>";	
 	}
 	
-
+	}
 }
 else{
 echo "<br><a href='rejestr.php'>Nowy użytkownik</a><br>";
@@ -41,5 +82,3 @@ echo "<a href='login.php'>Zaloguj się</a><br>";
 }
 
 ?>
-</body>
-</html>

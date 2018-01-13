@@ -22,7 +22,7 @@ if(isset($_COOKIE["cookie"])){
 <input type="hidden" name="rej" value="rej">
 
 <p class='tytul'></p>
-Folder:<br/>
+Nazwa folderu:<br/>
 <input type="text" name="folder" class="textbox"size="30" maxlength="50" /><br/>
 
 <input type="submit" name="logowanie" value="dodaj">

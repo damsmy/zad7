@@ -29,7 +29,7 @@ $czas = date("Y-m-d H:i:s");
 		@$rej = trim($_REQUEST["rej"]);
      
 			if ($rej == "rej"){
-$ilosc=='0';
+
 $wynik  = mysqli_query ($polaczenie,"SELECT * FROM  user WHERE (login = '$wys_login')")or die('Błąd zapytania do tabeli!'); // wszystko z user sprawdzeie loginu 
        
    	
@@ -44,14 +44,20 @@ $haslo=$wiersz [2];
 
 if(!empty($haslo))
 {
-	
-	$zapytanie2= mysqli_query ($polaczenie, "SELECT proby FROM logi2 WHERE (idu='$id') ORDER BY data DESC  LIMIT 3 "); // zlicza ilosc jedynek 
+	$ilosc='0';
+	$zapytanie2= mysqli_query ($polaczenie, "SELECT proby, data FROM logi2 WHERE (idu='$id') ORDER BY data DESC  LIMIT 3 "); // zlicza ilosc jedynek 
 		while ($wiersz3 = mysqli_fetch_array ($zapytanie2))
 		{
-			if($wiersz3[0]=='1'){
-			$ilosc++;
-			}
-		} 
+			$li[]=$wiersz3[0];
+
+	
+		}
+			
+if($li[0]=='1'){$ilosc=1;}
+if($li[1]=='1'&&$ilosc==1){$ilosc=2;}
+if($li[2]=='1'&&$ilosc==2){$ilosc=3;}
+			
+		 
 		
 	if($haslo==$wys_pass&&$ilosc<3)
 	{
@@ -69,7 +75,7 @@ if(!empty($haslo))
 		if($ilosc<2){
 			$zapytanie1= mysqli_query ($polaczenie, "INSERT INTO logi2 (idu,data,proby) VALUES ('". $id."','".$czas."','1')"); // wpisuje 1
 			$ilosc++;
-			
+			//echo "</br>1a</br>";
 		
 			
 					echo "Niepoprawne logowanie ilosc: ".$ilosc;
