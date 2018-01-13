@@ -15,6 +15,7 @@ if(isset($_COOKIE["cookie"])){
 	echo $user;
 echo "Witaj: ".$_COOKIE["cookie"];
 include ("dodjpliki.php");
+include ("newfolder.php");
 include ("otworz.php");
 echo "<br><a href='wyloguj.php?d=".$d."'>Wyloguj się</a><br>";
 $wynik2  = mysqli_query ($polaczenie,"SELECT id FROM user WHERE (login = '$user')")or die('Błąd zapytania do tabeli1!');	
